@@ -1,14 +1,10 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
 
-# Make object to hold settings
-class Settings
-  attr_accessor :name
-end
-
-# App-wide settings
-@app_settings = Settings.new
-@app_settings.name = "JRuby/Sinatra Test"
+# _App-wide settings_
+# set is like attr_accessor for settings class
+# e.g, settings.app_name to call from anywhere
+set :app_name, "JRuby/Sinatra Test"
 
 
 get '/' do
@@ -31,7 +27,7 @@ __END__
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title><%= "#{@app_settings.name} - #{@title}" %></title>
+  <title><%= "#{settings.app_name} - #{@title}" %></title>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 </head>
 <body>
