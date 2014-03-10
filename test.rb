@@ -6,31 +6,24 @@ require 'sinatra/reloader' if development?
 # e.g, settings.app_name to call from anywhere
 set :app_name, "JRuby/Sinatra Test"
 
-
+# _Handlers_
 get '/' do
-  "Hello world!"
+  @title = "Hello world"
+  erb :form
 end
 
-get '/hi/:name' do
-  "Hi #{params[:name]}!"
+post '/' do
+  @first_name, @last_name = params[:post].values_at(:first_name, :last_name)
+  @title = "#{@first_name}"
+  erb "Hello #{@first_name} #{@last_name}!"
+  # erb :hello # -> put this info into views/hello.erb
 end
+
+# get '/hi/:name' do
+#   "Hi #{params[:name]}!"
+# end
 
 get '/time' do
   @title = "Time"
   erb 'The time is <%= Time.now.strftime("%I:%M:%S %p") %>'
 end
-
-__END__
-
-@@ layout
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title><%= "#{settings.app_name} - #{@title}" %></title>
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-</head>
-<body>
-  <%= yield %>
-</body>
-</html>
