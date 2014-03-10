@@ -1,5 +1,8 @@
 require 'sinatra'
-require 'sinatra/reloader' if development?
+if development?
+  require 'sinatra/reloader'
+  set :bind, '0.0.0.0'
+end
 
 # _App-wide settings_
 # set is like attr_accessor for settings class
