@@ -1,4 +1,6 @@
 #!/usr/bin/env jruby
+require 'rubygems'
+require 'bundler/setup'
 
 require 'sinatra'
 if development?
